@@ -4,7 +4,7 @@ Vuejs framework
 dependencias
 
 +instalar webpack
-npm i webpack webpack-cli -D
+```npm i webpack webpack-cli -D```
 
 +instalar Loader css
 npm i css-loader -D
