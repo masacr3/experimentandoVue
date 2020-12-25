@@ -1,4 +1,4 @@
-#EXPERIMENTANDO CON VUE
+# EXPERIMENTANDO CON VUE
 
 ### Instalar webpack
 ```npm i webpack webpack-cli -D```
