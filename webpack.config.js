@@ -43,6 +43,17 @@ module.exports = {
                     { loader : 'sass-loader' }
                 ]
             },
+            {
+                test:/\.(png|jpg?g|gif)$/i,
+                use :[
+                    { loader : 'file-loader',
+                        options:{
+                            name :'[name].[ext]',
+                            esModule: false
+                        }
+                    }
+                ]
+            }
         ]
     },
     plugins:[

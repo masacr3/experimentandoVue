@@ -1,40 +1,50 @@
 <template>
     <div class="bg">
-        <div v-for="(item,i) in items" :key="i" class="link">
-            {{ item }}
+        <div class="codigob">
+            <div>
+                <img src="../assets/img/ovni.png"  style="cursor: crosshair;" width="45" height="45">
+            </div>
+            <div>
+                <input type="text" placeholder="codigo barras" class="btn">
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    data(){
-        return{
-            items : ['menu1', 'menu2', 'menu3']
-        }
-    }
+    
 }
 </script>
 
 <style scoped>
+    .btn{
+        width: 100px;
+        border: none;
+        background-color: transparent;
+        border-bottom: 1px solid #21262d ;
+        color:white;
+        outline: none;
+        margin-left: 3px;
+    }
+
     .bg{
+        position: sticky;
+        top: 0px;
         display: flex;
-        width: 150px;
-        flex-direction: column;
-        border-radius: 20px;
-        background-color:  #f48fb1;
+        width: 300px;
+        height: 150px;
+        flex-direction: row;
+        border-radius: 6px;
+        border: 1px solid #21262d;
+    }
+
+    .codigob{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         justify-content: center;
-        align-items: center;
-        color: white;
     }
 
-    .link{
-        display: flex;
-        align-items: center;
-        height: 35px;
-    }
-
-    .link:hover{
-        color: #fce4ec;
-    }
 </style>
