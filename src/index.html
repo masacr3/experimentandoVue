@@ -6,9 +6,13 @@
     <title>Document</title>
 </head>
 <body style="background-color:#0d1117;">
-    <div id="app" style="display: flex; flex-direction: row; justify-content: space-around;">
-        <menus></menus>
-        <box></box>
+    <div id="app" style="display: flex; flex-direction: row;">
+        <div>
+            <menus @codbarras="obtenercod"></menus>
+        </div>
+        <div>
+            <box ref="codbarras"></box>
+        </div>
     </div>
 </body>
 </html>

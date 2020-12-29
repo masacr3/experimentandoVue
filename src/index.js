@@ -4,9 +4,21 @@ import boxedvue from './componentes/boxed.vue'
 
 const app = new Vue({
     el: '#app',
+
+    data(){
+        return{
+            codigo:''
+        }
+    },
     components:{
         'box' : boxedvue,
-        'menus': menuvue
+        'menus': menuvue,
+    },
+    methods:{
+        obtenercod(value){
+            this.$refs.codbarras.agregar(value)
+        }
+
     }
 })
 

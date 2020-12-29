@@ -8,11 +8,11 @@
                 </div>
             </div>
         </div>
-        <div class="bg-middle" v-for="(item,i) in push" :key="i">
+        <div class="bg-middle" v-for="(item,i) in push()" :key="i">
              <div class="middle-content">
                 <div class="middle-marca">
                     <div>
-                        {{item.marca}}
+                        {{ item.marca }}
                     </div>
                     <badge :cantidad="item.cantidad"></badge>
                 </div>
@@ -41,61 +41,77 @@
 <script>
 import badgevue from './badges.vue'
 
+class Articulos{
+    constructor(marca, precio){
+        this.marca = marca
+        this.cantidad = 1
+        this.precio = precio
+    }
+}
+
 export default {
     data(){
         return{
             titulo : 'Ventas 1.0',
             hayArticulos: false,
             defaultcontenido: 'No hay articulos en carrito',
-            listaArticulos : [
-                { marca: 'coca cola', cantidad:1, precio :20},
-                { marca: 'luchetti', cantidad:23123, precio:30},
-                { marca: 'luchetti', cantidad:2123, precio:30},
-                { marca: 'luchetti', cantidad:23, precio:30},
-                { marca: 'luchetti', cantidad:23123, precio:30},
-                { marca: 'luchetti', cantidad:223, precio:30},
-                { marca: 'luchetti', cantidad:3123, precio:30},
-                { marca: 'luchetti', cantidad:223, precio:30},
-                { marca: 'luchetti', cantidad:23123, precio:30},
-                { marca: 'luchetti', cantidad:2323, precio:30},
-                { marca: 'luchetti', cantidad:23123, precio:30},
-                { marca: 'luchetti', cantidad:123, precio:30},
-                { marca: 'luchetti', cantidad:23123, precio:30},
-                { marca: 'luchetti', cantidad:45123, precio:30},
-                { marca: 'luchetti', cantidad:1123, precio:30},
-                { marca: 'luchetti', cantidad:5413, precio:30},
-                { marca: 'luchetti', cantidad:23, precio:30},
-                { marca: 'avon', cantidad:1, precio:19}
-            ],
+            listaArticulos : [],
+            cont: 1,
             ultimoArticulo : null,
         }
     },
     components:{
         'badge' : badgevue
     },
-    computed:{
-        push(){
-            if ( this.listaArticulos == 0 ){
-                this.hayArticulos = false
+    methods:{
+        agregar(value){
+            if(value){
+                if (!this.hayArticulos && this.listaArticulos.length == 0){
+                    this.ultimoArticulo = new Articulos( value, 20)
+                    this.hayArticulos = true
+                }
+                else {
+                    this.buscar(value)
+                }
+            }
+        },
+        buscar(cod){
+            if ( this.ultimoArticulo.marca === cod ){
+                this.ultimoArticulo.cantidad += 1
             }
             else{
-                this.ultimoArticulo = this.listaArticulos.pop()
-                this.hayArticulos = true
+                let pos = -1
+                for(let i=0; i < this.listaArticulos.length ; i++){
+                    let ok = this.listaArticulos[i].marca === cod
+                    console.log('estatus '+ok)
+                    if ( this.listaArticulos[i].marca === cod){
+                        pos = i
+                        break
+                    }
+                }
+                if (pos > -1){
+                    this.listaArticulos[pos].cantidad +=1
+                }
+                else{
+                    this.listaArticulos.unshift( new Articulos(cod,20000))
+                }
             }
-            return this.listaArticulos 
+        },
+        push(){ 
+            return this.listaArticulos
         }
     }
 }
 </script>
 
 <style scoped>
-
+    
     @media screen and (min-width: 800px) {
         .bg-header{
         /* tamanio */
         position: sticky;
         top: 0;
-        width: 400px;
+        width: 350px;
         height: 55px;
 
         /* print */
@@ -130,7 +146,7 @@ export default {
     }
 
     .bg-middle{
-        width: 400px;
+        width: 350px;
         height: 55px;
         border: 1px solid #21262d;
         border-top: none;
@@ -158,7 +174,7 @@ export default {
     }
 
     .bg-foo{ 
-        width: 400px;
+        width: 350px;
         height: 55px;
 
         border: 1px solid #21262d;
@@ -170,6 +186,6 @@ export default {
         flex-direction: column;
         justify-content: center;
     }   
-    }
+}
 
 </style>
