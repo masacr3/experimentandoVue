@@ -12,11 +12,17 @@
              <div class="middle-content">
                 <div class="middle-marca">
                     <div>
-                        {{ item.marca }}
+                        {{ item.marca }}<badge :cantidad ="item.cantidad"></badge>
                     </div>
-                    <badge :cantidad="item.cantidad"></badge>
                 </div>
-                <div>${{ item.precio }}</div>
+                <div class="bg-m">
+                    <div>
+                        ${{ item.precio }}
+                    </div>
+                    <div>
+                        ${{ item.subtotal }}
+                    </div>
+                </div>
             </div>
         </div>
         <div class="bg-foo">
@@ -27,7 +33,10 @@
                     </div>
                     <badge :cantidad="ultimoArticulo.cantidad"></badge>
                 </div>
-                <div>${{ ultimoArticulo.precio }}</div>
+                <div>
+                    ${{ ultimoArticulo.precio }}
+                    ${{ ultimoArticulo.subtotal}}
+                </div>
             </div>
             <div v-else class="foo-content">
                 <div>
@@ -46,6 +55,7 @@ class Articulos{
         this.marca = marca
         this.cantidad = 1
         this.precio = precio
+        this.subtotal = precio 
     }
 }
 
@@ -78,6 +88,7 @@ export default {
         buscar(cod){
             if ( this.ultimoArticulo.marca === cod ){
                 this.ultimoArticulo.cantidad += 1
+                this.ultimoArticulo.subtotal += this.ultimoArticulo.precio
             }
             else{
                 let pos = -1
@@ -91,6 +102,7 @@ export default {
                 }
                 if (pos > -1){
                     this.listaArticulos[pos].cantidad +=1
+                    this.listaArticulos[pos].subtotal += this.listaArticulos[pos].precio
                 }
                 else{
                     this.listaArticulos.unshift( new Articulos(cod,20000))
@@ -170,7 +182,8 @@ export default {
 
     .middle-marca, .foo-marca{
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .bg-foo{ 
@@ -185,6 +198,11 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    .bg-moneda{
+        display: flex;
+        flex-direction: column;
     }   
 }
 

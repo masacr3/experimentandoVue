@@ -1,4 +1,4 @@
-import Vue from 'vue'
+/*import Vue from 'vue'
 import menuvue from './componentes/menu.vue'
 import boxedvue from './componentes/boxed.vue'
 
@@ -21,4 +21,19 @@ const app = new Vue({
 
     }
 })
+*/
+import Vue from 'vue'
+import boxedvue from './componentes/boxed2.vue'
 
+const app = new Vue({
+    el: '#app',
+
+    data(){
+        return{
+            codigo:''
+        }
+    },
+    components:{
+        'box' : boxedvue,
+    }
+})

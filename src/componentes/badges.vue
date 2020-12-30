@@ -16,6 +16,7 @@ export default {
     .counter {
         display: inline-block;
         min-width: 20px;
+        height: 20px;
         padding: 0 6px;
         font-size: 12px;
         font-weight: 500;
