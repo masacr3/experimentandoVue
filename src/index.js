@@ -1,39 +1,17 @@
-/*import Vue from 'vue'
-import menuvue from './componentes/menu.vue'
-import boxedvue from './componentes/boxed.vue'
-
-const app = new Vue({
-    el: '#app',
-
-    data(){
-        return{
-            codigo:''
-        }
-    },
-    components:{
-        'box' : boxedvue,
-        'menus': menuvue,
-    },
-    methods:{
-        obtenercod(value){
-            this.$refs.codbarras.agregar(value)
-        }
-
-    }
-})
-*/
 import Vue from 'vue'
 import boxedvue from './componentes/boxed2.vue'
+import totalvue from './componentes/totalv.vue'
 
 const app = new Vue({
     el: '#app',
 
     data(){
         return{
-            codigo:''
+            totalventas : 100
         }
     },
     components:{
         'box' : boxedvue,
+        'total': totalvue
     }
 })

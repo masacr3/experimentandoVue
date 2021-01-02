@@ -6,7 +6,7 @@
         <div class="fila texto" v-for="(item,i) in push" :key="i">
             <div class="content-descripcion">
                 <div>{{item.marca}}<span class="badge">{{item.cant}}</span></div>
-                <div>{{item.des}}</div>
+                <div class="muted">{{item.des}}</div>
             </div>
             <div class="bg-precio">
                 ${{ item.precio }}
@@ -102,5 +102,9 @@ export default {
         border: 1px solid transparent;
         border-radius: 2em;
         margin-left: 3px; 
+    }
+
+    .muted{
+        font-size: 12px;
     }
 </style>
