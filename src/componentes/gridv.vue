@@ -16,6 +16,17 @@
 </template>
 
 <script>
+
+class Articulo{
+    constructor(id,marca,des,precio){
+        this.id = id
+        this.marca = marca 
+        this.des = des 
+        this.precio = precio
+        this.cant = 1
+    }
+}
+
 export default {
     data(){
         return{
@@ -25,6 +36,23 @@ export default {
                 { marca : 'luchetti', des: 'mostacholi 500g', cant:1, precio:30},
                 { marca : 'yogurisimo', des: 'vainilla 1 kg', cant:1, precio:40}
             ]
+        }
+    },
+    methods:{
+        estaArticulo(id){
+            let ok = false
+            for(let i=0; i< this.articulos.length; i++){
+                if( this.articulos[i].marca === id){
+                    ok = true
+                    break
+                }
+            }
+            return ok
+        },
+        agregarProducto(id){
+            if (!this.estaArticulo(id)){
+                this.articulos.push( new Articulo('01','playstation','4 slim',65000))
+            }
         }
     },
     computed:{
