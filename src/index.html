@@ -8,7 +8,7 @@
 <body style="background-color:#0d1117;">
     <div id="app" style="display: flex; flex-direction: row;">
         <codigobarras @codd="obtener"></codigobarras>
-        <grid ref="gg"></grid>
+        <grid ref="gg" @total="obtenervalor"></grid>
         <total :valor="totalventas"></total>
     </div>
 </body>

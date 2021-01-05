@@ -19,6 +19,10 @@ const app = new Vue({
     methods:{
         obtener(value){
             this.$refs.gg.agregarProducto(value)
+        },
+        obtenervalue(value){
+            this.total += value
         }
+
     }
 })

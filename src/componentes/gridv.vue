@@ -9,7 +9,7 @@
                 <div class="muted">{{item.des}}</div>
             </div>
             <div class="bg-precio">
-                ${{ item.precio }}
+                ${{ item.sub }}
             </div>
         </div>
     </div>
@@ -24,6 +24,7 @@ class Articulo{
         this.des = des 
         this.precio = precio
         this.cant = 1
+        this.sub = precio
     }
 }
 
@@ -31,27 +32,51 @@ export default {
     data(){
         return{
             titulo : 'ventas 1.0',
-            articulos : [
-                { marca : 'coca cola', des: '2l', cant: 1, precio:20000},
-                { marca : 'luchetti', des: 'mostacholi 500g', cant:1, precio:30},
-                { marca : 'yogurisimo', des: 'vainilla 1 kg', cant:1, precio:40}
+            articulos : [],
+            basedatos : [
+                { id:'1001', marca : 'coca cola', des: '2l', cant: 1, precio:20},
+                { id:'1002', marca : 'luchetti', des: 'mostacholi 500g', cant:1, precio:30},
+                { id:'1003', marca : 'yogurisimo', des: 'vainilla 1 kg', cant:1, precio:40}
             ]
         }
     },
     methods:{
-        estaArticulo(id){
+        estaArticuloBd(id){
             let ok = false
-            for(let i=0; i< this.articulos.length; i++){
-                if( this.articulos[i].marca === id){
+            let pos = -1
+            for(let i=0; i< this.basedatos.length; i++){
+                if( this.basedatos[i].id === id){
                     ok = true
+                    pos = i
                     break
                 }
             }
-            return ok
+            return { ok , pos }
+        },
+        estaArticuloGrid(id){
+            let ok = false
+            let pos = -1
+            for(let i=0; i< this.articulos.length; i++){
+                if( this.articulos[i].id === id){
+                    ok = true
+                    pos = i
+                    break
+                }
+            }
+            return { ok , pos }
         },
         agregarProducto(id){
-            if (!this.estaArticulo(id)){
-                this.articulos.push( new Articulo('01','playstation','4 slim',65000))
+            let buscarGrid = this.estaArticuloGrid(id)
+            if ( buscarGrid.ok ){
+                this.articulos[buscarGrid.pos].cant + 1
+            }
+            else{
+                let ok = this.estaArticuloBd(id)
+                if (ok.ok){
+                    let [ id, marca , des, cant, precio ] = this.articulos[ok.pos]
+                    this.articulos.push( new Articulo(id,marca,des,cant,precio))
+                    this.$emit('total', precio)
+                }
             }
         }
     },
