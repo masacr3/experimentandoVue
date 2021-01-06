@@ -74,7 +74,7 @@ export default {
             let buscarGrid = this.estaArticuloGrid(id)
             if ( buscarGrid.ok ){
                 this.articulos[buscarGrid.pos].cant += 1
-                this.articulos[buscarGrid.pos].sub += this.articulos.[buscarGrid.pos].precio
+                this.articulos[buscarGrid.pos].sub += this.articulos[buscarGrid.pos].precio
                 this.$emit('total',this.articulos[buscarGrid.pos].precio)
             }
             else{
