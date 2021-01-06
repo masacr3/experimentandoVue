@@ -9,8 +9,11 @@
                 <div class="muted">{{item.des}}</div>
             </div>
             <div class="bg-precio">
-                ${{ item.sub }}
+                <span :title="item.textprecio">${{ item.sub }}</span>
             </div>
+        </div>
+        <div class="no-fila texto" v-if="noHayArticulos">
+            <div class="no-productos">{{ existencias }}</div>
         </div>
     </div>
 </template>
@@ -25,6 +28,7 @@ class Articulo{
         this.precio = precio
         this.cant = 1
         this.sub = precio
+        this.textprecio = "precio unitario: $"+ precio
     }
 }
 
@@ -32,6 +36,7 @@ export default {
     data(){
         return{
             titulo : 'ventas 1.0',
+            existencias : 'no hay articulos',
             articulos : [],
             basedatos : [
                 { id:'1001', marca : 'coca cola', des: '2l', cant: 1, precio:20},
@@ -68,14 +73,16 @@ export default {
         agregarProducto(id){
             let buscarGrid = this.estaArticuloGrid(id)
             if ( buscarGrid.ok ){
-                this.articulos[buscarGrid.pos].cant + 1
+                this.articulos[buscarGrid.pos].cant += 1
+                this.articulos[buscarGrid.pos].sub += this.articulos.[buscarGrid.pos].precio
+                this.$emit('total',this.articulos[buscarGrid.pos].precio)
             }
             else{
                 let ok = this.estaArticuloBd(id)
                 if (ok.ok){
-                    let [ id, marca , des, cant, precio ] = this.articulos[ok.pos]
-                    this.articulos.push( new Articulo(id,marca,des,cant,precio))
-                    this.$emit('total', precio)
+                    let articulo = this.basedatos[ok.pos]
+                    this.articulos.push( new Articulo(articulo.id,articulo.marca,articulo.des,articulo.precio))
+                    this.$emit('total', articulo.precio)
                 }
             }
         }
@@ -83,6 +90,9 @@ export default {
     computed:{
         push(){
             return this.articulos
+        },
+        noHayArticulos(){
+            return this.articulos.length < 1 
         }
     }
 }
@@ -90,6 +100,7 @@ export default {
 
 <style scoped>
     .bg{
+        height: min-content;
         display: flex;
         flex-direction: column;
         border-radius: 6px;
@@ -159,5 +170,18 @@ export default {
 
     .muted{
         font-size: 12px;
+    }
+
+    .no-fila{
+        width:350px;
+        height: 55px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-top: solid 1px#21262d;
+
+        /*padding*/
+        padding: 0px 15px;
     }
 </style>

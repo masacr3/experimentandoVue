@@ -8,7 +8,7 @@ const app = new Vue({
 
     data(){
         return{
-            totalventas : 100,
+            totalventas : 0,
         }
     },
     components:{
@@ -17,11 +17,11 @@ const app = new Vue({
         'total': totalvue
     },
     methods:{
-        obtener(value){
+        obtenerExpresion(value){
             this.$refs.gg.agregarProducto(value)
         },
-        obtenervalue(value){
-            this.total += value
+        obtenervalor(value){
+            this.totalventas += value
         }
 
     }
